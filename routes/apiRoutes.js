@@ -28,8 +28,17 @@ routes.post("/api/notes", function(req,res){
     }
     dbParse.push(newNote);
     console.log(dbParse);
+    
+    fs.writeFile('./db/db.json', JSON.stringify(dbParse), (err)  =>{
+        if (err) throw err;
+        console.log("note saved");
+    })
 });
 
+
+routes.delete("/api/notes/:id", function(req,res){
+    
+})
 
 
 
