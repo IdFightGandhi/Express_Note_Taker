@@ -3,6 +3,7 @@ var express=require("express");
 var routes=express.Router();
 
 var fs=require("fs");
+const { restart } = require("nodemon");
 
 const uniqid=require('uniqid');
 
@@ -37,7 +38,12 @@ routes.post("/api/notes", function(req,res){
 
 
 routes.delete("/api/notes/:id", function(req,res){
-    
+    let note = req.params.id;
+    console.log(note);
+
+}).then(function (notes){
+    notes.filter(note);
+    console.log(notes)
 })
 
 
