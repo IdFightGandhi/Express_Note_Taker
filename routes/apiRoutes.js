@@ -33,17 +33,29 @@ routes.post("/api/notes", function(req,res){
     fs.writeFile('./db/db.json', JSON.stringify(dbParse), (err)  =>{
         if (err) throw err;
         console.log("note saved");
+        res.json(newNote);
     })
+
 });
 
 
 routes.delete("/api/notes/:id", function(req,res){
     let note = req.params.id;
     console.log(note);
+    fs.readFile("./db/db.json", (err, data) => {
+        let notes = JSON.parse(data)
+        if(err) throw err;
+        let filteredNotes = notes.filter(item=>item.id != note);
 
-}).then(function (notes){
-    notes.filter(note);
-    console.log(notes)
+        fs.writeFile('./db/db.json', JSON.stringify(filteredNotes), (err)  =>{
+            if (err) throw err;
+            console.log("note deleted");
+            res.json(filteredNotes);
+        })
+    
+    });
+    
+
 })
 
 
